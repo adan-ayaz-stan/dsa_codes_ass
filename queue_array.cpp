@@ -1,96 +1,105 @@
 #include <iostream>
 using namespace std;
 
-#define MAX 100
+class Queue {
+private:
+    int queue[100];
+    int front;
+    int rear;
 
-int queue[MAX];
-int front = -1;
-int rear = -1;
+public:
+    Queue() {
+        front = -1;
+        rear = -1;
+    }
 
-void enqueue(int val) {
-    if (rear >= MAX - 1) {
-        cout << "Queue overflow" << endl;
-        return;
+    void enqueue(int val) {
+        if (rear >= 100 - 1) {
+            cout << "Queue overflow" << endl;
+            return;
+        }
+        
+        if (front == -1) {
+            front = 0;
+        }
+        
+        rear++;
+        queue[rear] = val;
+        cout << val << " enqueued to queue" << endl;
     }
-    
-    if (front == -1) {
-        front = 0;
-    }
-    
-    rear++;
-    queue[rear] = val;
-    cout << val << " enqueued to queue" << endl;
-}
 
-void dequeue() {
-    if (front == -1 || front > rear) {
-        cout << "Queue is empty" << endl;
-        return;
+    void dequeue() {
+        if (front == -1 || front > rear) {
+            cout << "Queue is empty" << endl;
+            return;
+        }
+        
+        cout << queue[front] << " dequeued from queue" << endl;
+        front++;
+        
+        if (front > rear) {
+            front = rear = -1;
+        }
     }
-    
-    cout << queue[front] << " dequeued from queue" << endl;
-    front++;
-    
-    if (front > rear) {
-        front = rear = -1;
-    }
-}
 
-void peek() {
-    if (front == -1 || front > rear) {
-        cout << "Queue is empty" << endl;
-    } else {
-        cout << "Front element: " << queue[front] << endl;
+    void peek() {
+        if (front == -1 || front > rear) {
+            cout << "Queue is empty" << endl;
+        } else {
+            cout << "Front element: " << queue[front] << endl;
+        }
     }
-}
 
-void display() {
-    if (front == -1 || front > rear) {
-        cout << "Queue is empty" << endl;
-        return;
+    void display() {
+        if (front == -1 || front > rear) {
+            cout << "Queue is empty" << endl;
+            return;
+        }
+        
+        cout << "Queue: ";
+        for (int i = front; i <= rear; i++) {
+            cout << queue[i] << " ";
+        }
+        cout << endl;
     }
-    
-    cout << "Queue: ";
-    for (int i = front; i <= rear; i++) {
-        cout << queue[i] << " ";
+
+    bool isEmpty() {
+        return (front == -1 || front > rear);
     }
-    cout << endl;
-}
 
-bool isEmpty() {
-    return (front == -1 || front > rear);
-}
-
-bool isFull() {
-    return rear >= MAX - 1;
-}
+    bool isFull() {
+        return rear >= 100 - 1;
+    }
+};
 
 int main() {
-    enqueue(10);
-    enqueue(20);
-    enqueue(30);
-    enqueue(40);
+    Queue q;
     
-    display();
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+    q.enqueue(40);
     
-    peek();
+    q.display();
     
-    dequeue();
-    dequeue();
+    q.peek();
     
-    display();
+    q.dequeue();
+    q.dequeue();
     
-    peek();
+    q.display();
     
-    cout << "Is empty: " << (isEmpty() ? "Yes" : "No") << endl;
-    cout << "Is full: " << (isFull() ? "Yes" : "No") << endl;
+    q.peek();
     
-    dequeue();
-    dequeue();
+    cout << "Is empty: " << (q.isEmpty() ? "Yes" : "No") << endl;
+    cout << "Is full: " << (q.isFull() ? "Yes" : "No") << endl;
     
-    cout << "Is empty: " << (isEmpty() ? "Yes" : "No") << endl;
+    q.dequeue();
+    q.dequeue();
     
-    dequeue();
+    cout << "Is empty: " << (q.isEmpty() ? "Yes" : "No") << endl;
+    
+    q.dequeue();
     
     return 0;
 }

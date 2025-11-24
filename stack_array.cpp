@@ -1,87 +1,95 @@
 #include <iostream>
 using namespace std;
 
-#define MAX 100
+class Stack {
+private:
+    int stack[100];
+    int top;
 
-int stack[MAX];
-int top = -1;
-
-void push(int val) {
-    if (top >= MAX - 1) {
-        cout << "Stack overflow" << endl;
-        return;
+public:
+    Stack() {
+        top = -1;
     }
-    
-    top++;
-    stack[top] = val;
-    cout << val << " pushed to stack" << endl;
-}
 
-void pop() {
-    if (top < 0) {
-        cout << "Stack is empty" << endl;
-        return;
+    void push(int val) {
+        if (top >= 100 - 1) {
+            cout << "Stack overflow" << endl;
+            return;
+        }
+        
+        top++;
+        stack[top] = val;
+        cout << val << " pushed to stack" << endl;
     }
-    
-    cout << stack[top] << " popped from stack" << endl;
-    top--;
-}
 
-void peek() {
-    if (top < 0) {
-        cout << "Stack is empty" << endl;
-    } else {
-        cout << "Top element: " << stack[top] << endl;
+    void pop() {
+        if (top < 0) {
+            cout << "Stack is empty" << endl;
+            return;
+        }
+        
+        cout << stack[top] << " popped from stack" << endl;
+        top--;
     }
-}
 
-void display() {
-    if (top < 0) {
-        cout << "Stack is empty" << endl;
-        return;
+    void peek() {
+        if (top < 0) {
+            cout << "Stack is empty" << endl;
+        } else {
+            cout << "Top element: " << stack[top] << endl;
+        }
     }
-    
-    cout << "Stack: ";
-    for (int i = top; i >= 0; i--) {
-        cout << stack[i] << " ";
+
+    void display() {
+        if (top < 0) {
+            cout << "Stack is empty" << endl;
+            return;
+        }
+        
+        cout << "Stack: ";
+        for (int i = top; i >= 0; i--) {
+            cout << stack[i] << " ";
+        }
+        cout << endl;
     }
-    cout << endl;
-}
 
-bool isEmpty() {
-    return top < 0;
-}
+    bool isEmpty() {
+        return top < 0;
+    }
 
-bool isFull() {
-    return top >= MAX - 1;
-}
+    bool isFull() {
+        return top >= 100 - 1;
+    }
+};
 
 int main() {
-    push(10);
-    push(20);
-    push(30);
-    push(40);
+    Stack s;
     
-    display();
+    s.push(10);
+    s.push(20);
+    s.push(30);
+    s.push(40);
     
-    peek();
+    s.display();
     
-    pop();
-    pop();
+    s.peek();
     
-    display();
+    s.pop();
+    s.pop();
     
-    peek();
+    s.display();
     
-    cout << "Is empty: " << (isEmpty() ? "Yes" : "No") << endl;
-    cout << "Is full: " << (isFull() ? "Yes" : "No") << endl;
+    s.peek();
     
-    pop();
-    pop();
+    cout << "Is empty: " << (s.isEmpty() ? "Yes" : "No") << endl;
+    cout << "Is full: " << (s.isFull() ? "Yes" : "No") << endl;
     
-    cout << "Is empty: " << (isEmpty() ? "Yes" : "No") << endl;
+    s.pop();
+    s.pop();
     
-    pop();
+    cout << "Is empty: " << (s.isEmpty() ? "Yes" : "No") << endl;
+    
+    s.pop();
     
     return 0;
 }
