@@ -1,0 +1,10 @@
+singly_linked_list
+doubly_linked_list
+circular_linked_list
+stack_linked_list
+stack_array
+queue_linked_list
+queue_array
+*.o
+*.out
+*.exe
